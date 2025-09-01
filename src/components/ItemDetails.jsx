@@ -1,8 +1,7 @@
-import React from 'react';
 import FloatingLabelInput from './FloatingLabelInput';
 import { Trash2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { formatCurrency, getCurrencySymbol } from '../utils/formatCurrency.js';
+import { getCurrencySymbol } from '../utils/formatCurrency.js';
 
 const ItemDetails = ({ items, handleItemChange, addItem, removeItem, currencyCode: propCurrencyCode }) => {
   let currencyCode = propCurrencyCode;
@@ -30,6 +29,13 @@ const ItemDetails = ({ items, handleItemChange, addItem, removeItem, currencyCod
               type="number"
               value={item.quantity}
               onChange={(e) => handleItemChange(index, 'quantity', parseFloat(e.target.value))}
+            />
+            <FloatingLabelInput
+              id={`itemHSN${index}`}
+              label="HSN"
+              type="text"
+              value={item.hsn}
+              onChange={(e) => handleItemChange(index, 'hsn', parseFloat(e.target.value))}
             />
             <FloatingLabelInput
               id={`itemAmount${index}`}

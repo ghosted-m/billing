@@ -1,5 +1,3 @@
-import React from 'react';
-
 const FloatingLabelInput = ({ id, label, type = 'text', value, onChange, name, className = '', disabled = false }) => {
   return (
     <div className="relative">

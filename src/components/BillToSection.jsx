@@ -1,4 +1,3 @@
-import React from 'react';
 import FloatingLabelInput from './FloatingLabelInput';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";

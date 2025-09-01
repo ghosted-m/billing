@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency } from '../utils/formatCurrency'; // Corrected import path
 import FloatingLabelInput from '../components/FloatingLabelInput';
@@ -263,27 +263,6 @@ const Index = () => {
         quantity: 3,
         amount: 30,
         total: 90,
-      },
-      {
-        name: "Service D",
-        description: "Another professional service",
-        quantity: 2,
-        amount: 150,
-        total: 300,
-      },
-      {
-        name: "Product E",
-        description: "Yet another product",
-        quantity: 1,
-        amount: 75,
-        total: 75,
-      },
-      {
-        name: "Service F",
-        description: "Yet another service",
-        quantity: 4,
-        amount: 100,
-        total: 400,
       },
     ]);
     settaxPercentage(10);
