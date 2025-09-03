@@ -35,7 +35,7 @@ const ItemDetails = ({ items, handleItemChange, addItem, removeItem, currencyCod
               label="HSN"
               type="text"
               value={item.hsn}
-              onChange={(e) => handleItemChange(index, 'hsn', parseFloat(e.target.value))}
+              onChange={(e) => handleItemChange(index, 'hsn', (e.target.value))}
             />
             <FloatingLabelInput
               id={`itemAmount${index}`}

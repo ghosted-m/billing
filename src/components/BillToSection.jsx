@@ -38,6 +38,13 @@ const BillToSection = ({ billTo, handleInputChange, selectedCurrency, setSelecte
           onChange={handleInputChange}
           name="phone"
         />
+        <FloatingLabelInput
+          id="billToGSTIN"
+          label="GSTIN"
+          value={billTo.gstin}
+          onChange={handleInputChange}
+          name="gstin"
+        />
       </div>
       <FloatingLabelInput
         id="billToAddress"
@@ -45,6 +52,22 @@ const BillToSection = ({ billTo, handleInputChange, selectedCurrency, setSelecte
         value={billTo.address}
         onChange={handleInputChange}
         name="address"
+        className="mt-4"
+      />
+      <FloatingLabelInput
+        id="billToAddress"
+        label="Address-2"
+        value={billTo.address2}
+        onChange={handleInputChange}
+        name="address2"
+        className="mt-4"
+      />
+      <FloatingLabelInput
+        id="billToAddress"
+        label="Address-3"
+        value={billTo.address3}
+        onChange={handleInputChange}
+        name="address3"
         className="mt-4"
       />
     </div>

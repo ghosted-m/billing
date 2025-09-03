@@ -26,7 +26,7 @@ export const generateGSTNumber = () => {
 function generatePANNumber() {
   var panNumber = "";
   var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var taxpayerCategories = "ABCFGHLJPT";
+  var taxpayerCategories = "ABCFGHJLPT";
   for (var i = 0; i < 3; i++) {
     panNumber += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
   }

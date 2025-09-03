@@ -55,8 +55,8 @@ const noteOptions = [
 const Index = () => {
   const navigate = useNavigate();
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
-  const [billTo, setBillTo] = useState({ name: "", address: "", phone: "" });
-  const [shipTo, setShipTo] = useState({ name: "", address: "", phone: "" });
+  const [billTo, setBillTo] = useState({ name: "", address: "", address2:'',address3:'', phone: "", gstin:'' });
+  const [shipTo, setShipTo] = useState({ name: "", address: "", address2:'',address3:'', phone: ""   });
   const [invoice, setInvoice] = useState({
     date: "",
     paymentDate: "",
@@ -271,8 +271,8 @@ const Index = () => {
   };
 
   const clearForm = () => {
-    setBillTo({ name: "", address: "", phone: "" });
-    setShipTo({ name: "", address: "", phone: "" });
+    setBillTo({ name: "", address: "", address2:'',address3:'', phone: "", gstin:'' });
+    setShipTo({ name: "", address: "", address2:'',address3:'', phone: "" });
     setInvoice({
       date: "",
       paymentDate: "",
@@ -284,6 +284,26 @@ const Index = () => {
     setNotes("");
     localStorage.removeItem("formData");
   };
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const fullFormData = {
+    billTo,
+    shipTo,
+    invoice,
+    yourCompany,
+    items,
+    taxPercentage,
+    taxAmount,
+    subTotal,
+    grandTotal,
+    notes,
+    currency: selectedCurrency
+  };
+
+  console.log(fullFormData); // ✅ All form data here
+};
 
   return (
     <div className="container mx-auto px-4 py-8 relative">
@@ -328,7 +348,7 @@ const Index = () => {
       </button>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
-          <form>
+          <form onSubmit={handleSubmit}>
             <BillToSection
               billTo={billTo}
               handleInputChange={handleInputChange(setBillTo)}
@@ -457,6 +477,7 @@ const Index = () => {
             </div>
 
             {/* Clear Form button removed */}
+            <input type='submit' value='Submit' />
           </form>
         </div>
 

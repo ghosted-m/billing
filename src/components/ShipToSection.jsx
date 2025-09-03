@@ -59,11 +59,25 @@ const ShipToSection = ({ shipTo, handleInputChange, billTo }) => {
             />
           </div>
           <FloatingLabelInput
-            id="shipToAddress"
+            id="shipToAdd"
             label="Address"
             value={shipTo.address}
             onChange={handleInputChange}
             name="address"
+          />
+          <FloatingLabelInput
+            id="shipToAdd2"
+            label="Address-2"
+            value={shipTo.address2}
+            onChange={handleInputChange}
+            name="address2"
+          />
+          <FloatingLabelInput
+            id="shipToAdd3"
+            label="Address-3"
+            value={shipTo.address3}
+            onChange={handleInputChange}
+            name="address3"
           />
         </div>
       )}
