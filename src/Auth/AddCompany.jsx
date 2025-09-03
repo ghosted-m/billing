@@ -1,31 +1,55 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FloatingLabelInput from '../components/FloatingLabelInput';
+import {query, getDocs, collection, addDoc} from 'firebase/firestore';
+import {db} from './database';
 
 export default function Company() {
-    const [add, setAdd] = useState({address1:'',address2:'',address3:''})
-    const [formData,setFormData] = useState({
-        company:'',
-        mobile:'',
-        email:'',
-        gstin:'',
-    });
+    const [clientAddress, setClientAddress] = useState({address1:'',address2:'',address3:''})
+    const [clientInfo,setClientInfo] = useState({company:'',mobile:'',email:'',gstin:'',});
     
-        const handleChange = (setter)=>(e)=>{
-        const {name,value} = e.target;
-        setter((prev)=>({...prev,[name]:value}))};
+    const handleChange = (setter)=>(e)=>{
+    const {name,value} = e.target;
+    setter((prev)=>({...prev,[name]:value}))};
 
-    const handleSubmit = (e) => {
-    e.preventDefault();
-    const companyData ={
-        formData,
-        add,
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const isClientInfoValid = Object.values(clientInfo).every(val => val.trim() !== '');
+        const isClientAddressValid = Object.values(clientAddress).every(val => val.trim() !== '');
+        if (!isClientInfoValid || !isClientAddressValid) {
+            alert('Please fill in all required fields before submitting.');
+            return;
+        }
+        const companyData = {clientInfo, clientAddress,}
+        try {
+            const docRef = await addDoc(collection(db, "users"), companyData);
+            console.log("Document written with ID: ", docRef.id);
+            setClientAddress({ address1: '', address2: '', address3: '' });
+            setClientInfo({company: '', mobile: '', email: '', gstin: '', });}
+        catch (e) {
+            console.error("Error adding document: ", e);
+        }
     }
-        console.log(companyData);
-    }
+    const [dataRcv, setDataRcv] = useState([]);
+    const fetchData = async () => {
+    const q = query(collection(db, 'users'));
+    const querySnapshot = await getDocs(q);
+    const data =[];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, ' => ', doc.data());
+      data.push({ id: doc.id, ...doc.data() });
+    });
+    setDataRcv(data); // Save to state
+  };
+
+  useEffect(() => {
+    fetchData();
+    console.log(dataRcv);
+  }, []);
+
     return(
         <>
         <div className='p-4 shadow-lg m-8'>
-            <h3 className='font-semibold mb-4'>COMPANY DETAILS</h3>
+        <h3 className='font-semibold mb-4'>COMPANY DETAILS</h3>
         <form onSubmit={handleSubmit} className='space-x-4'>
             <div className=''>
 
@@ -34,10 +58,18 @@ export default function Company() {
             id='CompanyName'
             label='COMPANY NAME'
             type='text'
-            value={formData.company}
-            onChange={handleChange(setFormData)}
+            value={clientInfo.company}
+            onChange={handleChange(setClientInfo)}
             name='company'
+            list='dataset'
             />
+            
+            <datalist id='dataset'>
+            {
+                dataRcv.map((data)=>(<option key={data.id} value={data?.clientInfo.company || ''} />))
+            }
+            </datalist>
+            
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4'>
@@ -46,8 +78,8 @@ export default function Company() {
             id='mobile'
             label='Mobile'
             type='text'
-            value={formData.mobile}
-            onChange={handleChange(setFormData)}
+            value={clientInfo.mobile}
+            onChange={handleChange(setClientInfo)}
             name='mobile'
             />
             </div>
@@ -56,8 +88,8 @@ export default function Company() {
             id='email'
             label='EMAIL-ID'
             type='text'
-            value={formData.email}
-            onChange={handleChange(setFormData)}
+            value={clientInfo.email}
+            onChange={handleChange(setClientInfo)}
             name='email'
             />
             </div>
@@ -66,8 +98,8 @@ export default function Company() {
             id='gstin'
             label='GSTIN'
             type='text'
-            value={formData.gstin}
-            onChange={handleChange(setFormData)}
+            value={clientInfo.gstin}
+            onChange={handleChange(setClientInfo)}
             name='gstin'
             />
             </div>
@@ -76,8 +108,8 @@ export default function Company() {
             id='add1'
             label='ADDRESS-1'
             type='text'
-            value={formData.address1}
-            onChange={handleChange(setAdd)}
+            value={clientAddress.address1}
+            onChange={handleChange(setClientAddress)}
             name='address1'
             />
             </div>
@@ -86,8 +118,8 @@ export default function Company() {
             id='add2'
             label='ADDRESS-2'
             type='text'
-            value={formData.address2}
-            onChange={handleChange(setAdd)}
+            value={clientAddress.address2}
+            onChange={handleChange(setClientAddress)}
             name='address2'
             />
             </div>
@@ -96,14 +128,14 @@ export default function Company() {
             id='add3'
             label='ADDRESS-3'
             type='text'
-            value={formData.address3}
-            onChange={handleChange(setAdd)}
+            value={clientAddress.address3}
+            onChange={handleChange(setClientAddress)}
             name='address3'
             />
             </div>
             </div>
-            <input type='Submit' value='Submit'/>
             </div>
+            <button type='submit'>Submit</button>
         </form>
         </div>
         </>

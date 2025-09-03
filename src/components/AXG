@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import { customers } from './data';
+
+
+  const [formData, setFormData] = useState(null);
+  const handleCustomerChange = (
+    event
+  ) => {
+    const selectedName = event.target.value;
+    const customer = Database.find((c) => c.id === selectedName);
+    if (customer) {
+      setFormData(customer);
+    } else {
+      setFormData(emptyCustomer);
+    }
+  };
+
+  return (
+    <div className="p-4 space-x-4">
+      <form className="">
+        <select onChange={handleCustomerChange}>
+          <option value="">-- Select Customer --</option>
+          {customers.map((customer, index) => (
+            <option key={index} value={customer.id}>
+              {customer.name} {customer.gstin}
+            </option>
+          ))}
+        </select>
+
+        <h3>Customer Details</h3>
+        <label>Phone:</label>
+        <input type="text" value={formData.phone} readOnly />
+
+        <label>Email:</label>
+        <input type="text" value={formData.email} readOnly />
+
+       
+
+
+
+        
+    const [formData, setFormData] = useState(null);
+    const handleCustomerChange = (
+      event
+    ) => {
+      const selectedName = event.target.value;
+      const customer = dataRcv.find((c) => c.id === selectedName);
+      if (customer) {
+        setFormData(customer);
+      } else {
+        setFormData(
+            { address1: '', address2: '', address3: '' },
+            {company: '', mobile: '', email: '', gstin: '' });
+      }
+    };

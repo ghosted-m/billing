@@ -1,4 +1,4 @@
-const FloatingLabelInput = ({ id, label, type = 'text', value, onChange, name, className = '', disabled = false }) => {
+const FloatingLabelInput = ({ id, label, type = 'text', value, onChange, name, className = '', disabled = false, list=''}) => {
   return (
     <div className="relative">
       <input
@@ -15,6 +15,7 @@ const FloatingLabelInput = ({ id, label, type = 'text', value, onChange, name, c
         data-form-type="other"
         spellCheck="false"
         aria-autocomplete="none"
+        list={list}
       />
       <label
         htmlFor={id}
