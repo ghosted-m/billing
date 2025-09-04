@@ -1,4 +1,4 @@
-const FloatingLabelInput = ({ id, label, type = 'text', value, onChange, name, className = '', disabled = false, list=''}) => {
+const FloatingLabelInput = ({ id, label, type = 'text', value='', onChange=() => {}, name, className = '', disabled = false, list=''}) => {
   return (
     <div className="relative">
       <input

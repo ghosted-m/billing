@@ -53,3 +53,36 @@ import { customers } from './data';
             {company: '', mobile: '', email: '', gstin: '' });
       }
     };
+
+
+
+
+  const handleCustomerChange = (event) => {
+  const selectedName = event.target.value;
+  const customer = users.find(
+    (c) => `${c.clientInfo.company} - ${c.clientInfo.gstin}` === selectedName
+  );
+
+  if (customer) {
+    const { clientInfo, clientAddress } = customer;
+    setFormData({
+      company: clientInfo.company || '',
+      mobile: clientInfo.mobile || '',
+      email: clientInfo.email || '',
+      gstin: clientInfo.gstin || '',
+      address1: clientAddress.address1 || '',
+      address2: clientAddress.address2 || '',
+      address3: clientAddress.address3 || '',
+    });
+  } else {
+    setFormData({
+      company: '',
+      mobile: '',
+      email: '',
+      gstin: '',
+      address1: '',
+      address2: '',
+      address3: '',
+    });
+  }
+};

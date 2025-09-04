@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { formatCurrency } from '../utils/formatCurrency'; // Corrected import path
 import FloatingLabelInput from '../components/FloatingLabelInput';
 import BillToSection from '../components/BillToSection';
 import ShipToSection from '../components/ShipToSection';
 import ItemDetails from "../components/ItemDetails";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { formatCurrency } from '../utils/formatCurrency'; // Corrected import path
 import { templates } from "../utils/templateRegistry";
 import { FiEdit, FiFileText, FiTrash2 } from "react-icons/fi"; // Added FiTrash2 icon
 import { RefreshCw } from "lucide-react";
@@ -55,7 +55,7 @@ const noteOptions = [
 const Index = () => {
   const navigate = useNavigate();
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
-  const [billTo, setBillTo] = useState({ name: "", address: "", address2:'',address3:'', phone: "", gstin:'' });
+  const [billTo, setBillTo] = useState();
   const [shipTo, setShipTo] = useState({ name: "", address: "", address2:'',address3:'', phone: ""   });
   const [invoice, setInvoice] = useState({
     date: "",
@@ -79,61 +79,61 @@ const Index = () => {
     setNotes(noteOptions[randomIndex]);
   };
 
-  useEffect(() => {
-    // Load form data from localStorage on component mount
-    const savedFormData = localStorage.getItem("formData");
-    if (savedFormData) {
-      const parsedData = JSON.parse(savedFormData);
-      setBillTo(parsedData.billTo || { name: "", address: "", phone: "" });
-      setShipTo(parsedData.shipTo || { name: "", address: "", phone: "" });
-      setInvoice(
-        parsedData.invoice || { date: "", paymentDate: "", number: "" }
-      );
-      setYourCompany(
-        parsedData.yourCompany || { name: "", address: "", phone: "" }
-      );
-      setItems(parsedData.items || []);
-      settaxPercentage(parsedData.taxPercentage || 0);
-      setNotes(parsedData.notes || "");
-      setSelectedCurrency(parsedData.selectedCurrency || "INR"); // Load selectedCurrency from localStorage
-    } else {
-      // If no saved data, set invoice number
-      setInvoice((prev) => ({
-        ...prev,
-        number: generateRandomInvoiceNumber(),
-      }));
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Load form data from localStorage on component mount
+  //   const savedFormData = localStorage.getItem("formData");
+  //   if (savedFormData) {
+  //     const parsedData = JSON.parse(savedFormData);
+  //     setBillTo(parsedData.billTo || { name: "", address: "", phone: "" });
+  //     setShipTo(parsedData.shipTo || { name: "", address: "", phone: "" });
+  //     setInvoice(
+  //       parsedData.invoice || { date: "", paymentDate: "", number: "" }
+  //     );
+  //     setYourCompany(
+  //       parsedData.yourCompany || { name: "", address: "", phone: "" }
+  //     );
+  //     setItems(parsedData.items || []);
+  //     settaxPercentage(parsedData.taxPercentage || 0);
+  //     setNotes(parsedData.notes || "");
+  //     setSelectedCurrency(parsedData.selectedCurrency || "INR"); // Load selectedCurrency from localStorage
+  //   } else {
+  //     // If no saved data, set invoice number
+  //     setInvoice((prev) => ({
+  //       ...prev,
+  //       number: generateRandomInvoiceNumber(),
+  //     }));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    // Save form data to localStorage whenever it changes
-    const formData = {
-      billTo,
-      shipTo,
-      invoice,
-      yourCompany,
-      items,
-      taxPercentage,
-      taxAmount,
-      subTotal,
-      grandTotal,
-      notes,
-      selectedCurrency, // Add selectedCurrency to localStorage
-    };
-    localStorage.setItem("formData", JSON.stringify(formData));
-  }, [
-    billTo,
-    shipTo,
-    invoice,
-    yourCompany,
-    items,
-    taxPercentage,
-    notes,
-    taxAmount,
-    subTotal,
-    grandTotal,
-    selectedCurrency, // Add selectedCurrency to localStorage dependency array
-  ]);
+  // useEffect(() => {
+  //   // Save form data to localStorage whenever it changes
+  //   const formData = {
+  //     billTo,
+  //     shipTo,
+  //     invoice,
+  //     yourCompany,
+  //     items,
+  //     taxPercentage,
+  //     taxAmount,
+  //     subTotal,
+  //     grandTotal,
+  //     notes,
+  //     selectedCurrency, // Add selectedCurrency to localStorage
+  //   };
+  //   localStorage.setItem("formData", JSON.stringify(formData));
+  // }, [
+  //   billTo,
+  //   shipTo,
+  //   invoice,
+  //   yourCompany,
+  //   items,
+  //   taxPercentage,
+  //   notes,
+  //   taxAmount,
+  //   subTotal,
+  //   grandTotal,
+  //   selectedCurrency, // Add selectedCurrency to localStorage dependency array
+  // ]);
 
   const handleInputChange = (setter) => (e) => {
     const { name, value } = e.target;
@@ -302,7 +302,7 @@ const Index = () => {
     currency: selectedCurrency
   };
 
-  console.log(fullFormData); // ✅ All form data here
+  console.log(fullFormData); 
 };
 
   return (
@@ -477,6 +477,7 @@ const Index = () => {
             </div>
 
             {/* Clear Form button removed */}
+            <input type='reset' value='Reset' />
             <input type='submit' value='Submit' />
           </form>
         </div>

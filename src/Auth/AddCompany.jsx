@@ -44,7 +44,7 @@ export default function Company() {
   useEffect(() => {
     fetchData();
     console.log(dataRcv);
-  }, []);
+  }, [dataRcv]);
 
     return(
         <>

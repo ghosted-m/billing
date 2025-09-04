@@ -7,6 +7,7 @@ import TemplatePage from "./pages/TemplatePage";
 import ReceiptPage from "./pages/ReceiptPage";
 import Index from "./pages/Index";
 import Company from "./Auth/AddCompany";
+import BillToSection from "./components/BillToSection";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/template" element={<TemplatePage />} />
           <Route path="/receipt" element={<ReceiptPage />} />
           <Route path="/company" element={<Company />} />
+          <Route path="/bb" element={<BillToSection />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
