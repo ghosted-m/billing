@@ -7,7 +7,8 @@ import { useState, useEffect } from 'react';
 
 
 
-const BillToSection = ({selectedCurrency, setSelectedCurrency }) => {
+const BillToSection = ({selectedCurrency, setSelectedCurrency, onFormDataChange }) => {
+  
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchUsers = async () => {
@@ -20,16 +21,17 @@ const BillToSection = ({selectedCurrency, setSelectedCurrency }) => {
 
 
 
-   const [formData, setFormData] = useState({});
-     const handleCustomerChange = (event) => {
+  const [formData, setFormData] = useState({});
+const handleCustomerChange = (event) => {
   const selectedName = event.target.value;
   const customer = users.find(
     (c) => `${c.clientInfo.company} - ${c.clientInfo.gstin}` === selectedName
   );
 
+  let updatedFormData;
   if (customer) {
     const { clientInfo, clientAddress } = customer;
-    setFormData({
+    updatedFormData = {
       company: clientInfo.company || '',
       mobile: clientInfo.mobile || '',
       email: clientInfo.email || '',
@@ -37,9 +39,9 @@ const BillToSection = ({selectedCurrency, setSelectedCurrency }) => {
       address1: clientAddress.address1 || '',
       address2: clientAddress.address2 || '',
       address3: clientAddress.address3 || '',
-    });
+    };
   } else {
-    setFormData({
+    updatedFormData = {
       company: '',
       mobile: '',
       email: '',
@@ -47,9 +49,13 @@ const BillToSection = ({selectedCurrency, setSelectedCurrency }) => {
       address1: '',
       address2: '',
       address3: '',
-    });
+    };
   }
+
+  setFormData(updatedFormData);
+  onFormDataChange(updatedFormData); // Send to parent
 };
+
 
 
   return (

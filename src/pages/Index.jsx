@@ -55,7 +55,7 @@ const noteOptions = [
 const Index = () => {
   const navigate = useNavigate();
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
-  const [billTo, setBillTo] = useState();
+  const [billTo, setBillTo] = useState({});
   const [shipTo, setShipTo] = useState({ name: "", address: "", address2:'',address3:'', phone: ""   });
   const [invoice, setInvoice] = useState({
     date: "",
@@ -351,7 +351,7 @@ const Index = () => {
           <form onSubmit={handleSubmit}>
             <BillToSection
               billTo={billTo}
-              handleInputChange={handleInputChange(setBillTo)}
+              onFormDataChange={setBillTo}
               selectedCurrency={selectedCurrency}
               setSelectedCurrency={setSelectedCurrency}
             />
