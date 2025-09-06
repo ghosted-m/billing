@@ -22,9 +22,10 @@ const Template3 = ({ data }) => {
           </div>
           <div>
             <h2 className="text-xl font-semibold mb-2">BILLED TO</h2>
-            <p>{billTo.name}</p>
-            <p>{billTo.address}</p>
-            <p>{billTo.phone}</p>
+            <p>{billTo.company}</p>
+            <p>{billTo.gstin}</p>
+            <p>{billTo.address1}, {billTo.address2}</p>
+            <p>{billTo.address3}, {billTo.mobile}</p>
           </div>
         </div>
         <div className="flex justify-between mb-8">

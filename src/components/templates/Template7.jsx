@@ -45,9 +45,10 @@ const Template7 = ({ data }) => {
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Billed to</h3>
-            <p>{billTo.name || "Client Name"}</p>
-            <p>{billTo.address || "Client Address"}</p>
-            <p>{billTo.phone || "Client Phone"}</p>
+            <p>{billTo.company}</p>
+            <p>{billTo.gstin}</p>
+            <p>{billTo.address1}, {billTo.address2}</p>
+            <p>{billTo.address3}, {billTo.mobile}</p>
           </div>
         </div>
 

@@ -9,6 +9,7 @@ import { templates } from "../utils/templateRegistry";
 import { FiEdit, FiFileText, FiTrash2 } from "react-icons/fi"; // Added FiTrash2 icon
 import { RefreshCw } from "lucide-react";
 import { set, sub } from "date-fns";
+import Company from '@/components/Company';
 
 const generateRandomInvoiceNumber = () => {
   const length = Math.floor(Math.random() * 6) + 3;
@@ -56,17 +57,13 @@ const Index = () => {
   const navigate = useNavigate();
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
   const [billTo, setBillTo] = useState({});
-  const [shipTo, setShipTo] = useState({ name: "", address: "", address2:'',address3:'', phone: ""   });
+  const [shipTo, setShipTo] = useState({ name: "", address1: "", address2:'',address3:'', phone: ""   });
   const [invoice, setInvoice] = useState({
     date: "",
     paymentDate: "",
     number: "",
   });
-  const [yourCompany, setYourCompany] = useState({
-    name: "",
-    address: "",
-    phone: "",
-  });
+  const [yourCompany, setYourCompany] = useState({});
   const [items, setItems] = useState([]);
   const [taxPercentage, settaxPercentage] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
@@ -271,14 +268,19 @@ const Index = () => {
   };
 
   const clearForm = () => {
-    setBillTo({ name: "", address: "", address2:'',address3:'', phone: "", gstin:'' });
-    setShipTo({ name: "", address: "", address2:'',address3:'', phone: "" });
+    setBillTo({ name: "", phone: "", address1: "", address2:'', address3:'', gstin:'', });
+    setShipTo({ name: "", phone:'', address1: "", address2:'', address3:'', });
     setInvoice({
       date: "",
       paymentDate: "",
       number: generateRandomInvoiceNumber(),
     });
-    setYourCompany({ name: "", address: "", phone: "" });
+    setYourCompany({ company:'',
+    phone:'',
+    gstin:'',
+    address1:'',
+    address2:'',
+    address3:'', });
     setItems([{ name: "", description: "", quantity: 0, amount: 0, total: 0 }]);
     settaxPercentage(0);
     setNotes("");
@@ -391,8 +393,8 @@ const Index = () => {
                 />
               </div>
             </div>
-
-            <div className="mb-6">
+            <Company CompanySelection={setYourCompany} />
+            {/* <div className="mb-6">
               <h2 className="text-2xl font-semibold mb-4">Your Company</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FloatingLabelInput
@@ -418,7 +420,7 @@ const Index = () => {
                 name="address"
                 className="mt-4"
               />
-            </div>
+            </div> */}
 
             <ItemDetails
               items={items}

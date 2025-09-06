@@ -6,8 +6,9 @@ import { navItems } from "./nav-items";
 import TemplatePage from "./pages/TemplatePage";
 import ReceiptPage from "./pages/ReceiptPage";
 import Index from "./pages/Index";
-import Company from "./Auth/AddCompany";
-import BillToSection from "./components/BillToSection";
+import Profile from "./Auth/AddProfile";
+import AddCustomer from "./Auth/AddCustomer";
+import Company from "./components/Company";
 
 const queryClient = new QueryClient();
 
@@ -23,8 +24,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/template" element={<TemplatePage />} />
           <Route path="/receipt" element={<ReceiptPage />} />
-          <Route path="/company" element={<Company />} />
-          <Route path="/bb" element={<BillToSection />} />
+          <Route path="/company" element={<Profile />} />
+          <Route path="/add" element={<AddCustomer />} />
+          <Route path="/bb" element={<Company />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

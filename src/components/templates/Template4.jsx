@@ -54,10 +54,11 @@ const Template4 = ({ data }) => {
               Billed to
             </h3>
             <p>
-              <strong>{billTo.name || "Client Name"}</strong>
+              <strong>{billTo.company || "Client Name"}</strong>
             </p>
-            <p>{billTo.address || "Client Address"}</p>
-            <p>{billTo.phone || "Client Phone"}</p>
+            <p>{billTo.gstin}</p>
+            <p>{billTo.address1}, {billTo.address2}</p>
+            <p>{billTo.address3}, {billTo.mobile}</p>
           </div>
         </div>
 

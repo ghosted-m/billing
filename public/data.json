@@ -1,0 +1,43 @@
+{
+  "taxpayerInfo": {
+    "cxdt": "",
+    "tradeNam": "AppyFlow Technologies",
+    "ctb": "Proprietorship",
+    "rgdt": "17/12/2019",
+    "stj": "Ludhiana 3 - Ward No.54",
+    "sts": "Active",
+    "stjCd": "PB223",
+    "ctjCd": "ZD0304",
+    "pradr": {
+      "ntr": "Office / Sale Office",
+      "addr": {
+        "flno": "",
+        "loc": "Ganesh Nagar",
+        "lg": "",
+        "stcd": "Punjab",
+        "st": "Street no 1",
+        "dst": "Ludhiana",
+        "city": "",
+        "bnm": "",
+        "pncd": "141008",
+        "lt": "",
+        "bno": "3018 Shop no 5"
+      }
+    },
+    "panNo": "AAMCA5641C",
+    "lgnm": "DISHANT MAHAJAN",
+    "nba": [
+      "Office / Sale Office"
+    ],
+    "gstin": "03DOXPM4071K1ZE",
+    "dty": "Regular",
+    "ctj": "RANGE-IV",
+    "adadr": []
+  },
+  "error": false,
+  "compliance": {
+    "filingFrequency": null
+  },
+  "message": "Kindly use paid credits for GST verification in production. Free credits are meant only for testing in sandbox. Link to buy credits: https://dashboard.gstapi.appyflow.in/#/app/buy-credits",
+  "filing": []
+}

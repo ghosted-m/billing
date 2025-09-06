@@ -4,9 +4,6 @@ import { Label } from "@/components/ui/label";
 import { getUserData } from '../Auth/Database';
 import { useState, useEffect } from 'react';
 
-
-
-
 const BillToSection = ({selectedCurrency, setSelectedCurrency, onFormDataChange }) => {
   
   const [users, setUsers] = useState([]);
@@ -14,14 +11,12 @@ const BillToSection = ({selectedCurrency, setSelectedCurrency, onFormDataChange 
     const fetchUsers = async () => {
       const data = await getUserData();
       setUsers(data);
+      console.log(data);
     };
     fetchUsers();
   }, []);
   
-
-
-
-  const [formData, setFormData] = useState({});
+const [formData, setFormData] = useState({});
 const handleCustomerChange = (event) => {
   const selectedName = event.target.value;
   const customer = users.find(
@@ -33,7 +28,7 @@ const handleCustomerChange = (event) => {
     const { clientInfo, clientAddress } = customer;
     updatedFormData = {
       company: clientInfo.company || '',
-      mobile: clientInfo.mobile || '',
+      phone: clientInfo.mobile || '',
       email: clientInfo.email || '',
       gstin: clientInfo.gstin || '',
       address1: clientAddress.address1 || '',
@@ -43,7 +38,7 @@ const handleCustomerChange = (event) => {
   } else {
     updatedFormData = {
       company: '',
-      mobile: '',
+      phone: '',
       email: '',
       gstin: '',
       address1: '',
@@ -51,12 +46,9 @@ const handleCustomerChange = (event) => {
       address3: '',
     };
   }
-
   setFormData(updatedFormData);
   onFormDataChange(updatedFormData); // Send to parent
 };
-
-
 
   return (
     <div className="mb-6">
@@ -85,7 +77,7 @@ const handleCustomerChange = (event) => {
           label="Name"
           value={formData.company}
           onChange={handleCustomerChange}
-          name="name"
+          name="company"
           list='receivedData'
         />
         <datalist id='receivedData'>
@@ -95,7 +87,7 @@ const handleCustomerChange = (event) => {
         <FloatingLabelInput
           id="billToPhone"
           label="Phone"
-          value={formData.mobile}
+          value={formData.phone}
           name="phone"
           onChange={() => {}}
         />
@@ -110,8 +102,8 @@ const handleCustomerChange = (event) => {
       <FloatingLabelInput
         id="billToAddress"
         label="Address"
-        value={formData.address}
-        name="address"
+        value={formData.address1}
+        name="address1"
         className="mt-4"
         onChange={() => {}}
       />

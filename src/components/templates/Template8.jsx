@@ -14,9 +14,10 @@ const Template8 = ({ data }) => {
         <div className="grid grid-cols-2 gap-8 mb-8">
           <div>
             <h3 className="text-lg font-semibold mb-2">Billed to</h3>
-            <p className="font-bold">{billTo.name}</p>
-            <p>{billTo.address}</p>
-            <p>{billTo.phone}</p>
+            <p className="font-bold">{billTo.company}</p>
+            <p>{billTo.gstin}</p>
+            <p>{billTo.address1}, {billTo.address2}</p>
+            <p>{billTo.address3}, {billTo.mobile}</p>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Invoice Details</h3>

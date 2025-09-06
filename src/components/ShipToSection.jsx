@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FloatingLabelInput from './FloatingLabelInput';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -14,9 +14,11 @@ const ShipToSection = ({ shipTo, handleInputChange, billTo }) => {
   const handleCopyBillToShip = (e) => {
     setCopyBillToShip(e.target.checked);
     if (e.target.checked) {
-      handleInputChange({ target: { name: 'name', value: billTo.name } });
-      handleInputChange({ target: { name: 'address', value: billTo.address } });
+      handleInputChange({ target: { name: 'name', value: billTo.company } });
       handleInputChange({ target: { name: 'phone', value: billTo.phone } });
+      handleInputChange({ target: { name: 'address1', value: billTo.address1 } });
+      handleInputChange({ target: { name: 'address2', value: billTo.address2 } });
+      handleInputChange({ target: { name: 'address3', value: billTo.address3 } });
     }
   };
 
@@ -61,9 +63,9 @@ const ShipToSection = ({ shipTo, handleInputChange, billTo }) => {
           <FloatingLabelInput
             id="shipToAdd"
             label="Address"
-            value={shipTo.address}
+            value={shipTo.address1}
             onChange={handleInputChange}
-            name="address"
+            name="address1"
           />
           <FloatingLabelInput
             id="shipToAdd2"

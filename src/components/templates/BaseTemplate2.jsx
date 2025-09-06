@@ -1,4 +1,3 @@
-import React from 'react';
 
 const BaseTemplate2 = ({ children, width = "794px", height = "1123px", className = "", isPrint = false }) => {
   const printStyle = isPrint
