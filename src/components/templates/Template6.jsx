@@ -12,10 +12,11 @@ const Template6 = ({ data }) => {
         <div className="flex justify-between items-start mb-8">
           <div>
             <h2 className="text-2xl font-bold" style={{ color: "#14A8DE" }}>
-              {yourCompany.name || "Company Name"}
+              {yourCompany.company}
             </h2>
-            <p>{yourCompany.address || "Company Address"}</p>
-            <p>{yourCompany.phone || "Company Phone"}</p>
+            <p>{yourCompany.gstin}</p>
+            <p>{yourCompany.address1 }, {yourCompany.address2}</p>
+            <p>{yourCompany.address3}, {yourCompany.mobile}</p>
           </div>
           <div className="text-right">
             <h1 className="text-3xl font-thin mb-4">Tax Invoice</h1>

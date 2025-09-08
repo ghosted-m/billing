@@ -7,8 +7,8 @@ import TemplatePage from "./pages/TemplatePage";
 import ReceiptPage from "./pages/ReceiptPage";
 import Index from "./pages/Index";
 import Profile from "./Auth/AddProfile";
-import AddCustomer from "./Auth/AddCustomer";
 import Company from "./components/Company";
+import BillToSection from "./components/BillToSection";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +25,7 @@ const App = () => (
           <Route path="/template" element={<TemplatePage />} />
           <Route path="/receipt" element={<ReceiptPage />} />
           <Route path="/company" element={<Profile />} />
-          <Route path="/add" element={<AddCustomer />} />
+          <Route path="/add" element={<BillToSection />} />
           <Route path="/bb" element={<Company />} />
         </Routes>
       </BrowserRouter>

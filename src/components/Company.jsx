@@ -1,52 +1,7 @@
-import { useState, useEffect } from "react";
 import FloatingLabelInput from "./FloatingLabelInput";
-import { getUserData } from "@/Auth/Database";
-
-const Company = ({CompanySelection})=>{
-const [users, setUsers] = useState([]);
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const data = await getUserData();
-      setUsers(data);
-      console.log(data);
-    };
-    fetchUsers();
-  }, []);
-  
-const [formData, setFormData] = useState({});
-
-const handleCustomerChange = (event) => {
-  const selectedName = event.target.value;
-  const customer = users.find(
-    (c) => `${c.clientInfo.company} - ${c.clientInfo.gstin}` === selectedName
-  );
-
-  let updatedFormData;
-  if (customer) {
-    const { clientInfo, clientAddress } = customer;
-    updatedFormData = {
-      company: clientInfo.company || '',
-      phone: clientInfo.mobile || '',
-      email: clientInfo.email || '',
-      gstin: clientInfo.gstin || '',
-      address1: clientAddress.address1 || '',
-      address2: clientAddress.address2 || '',
-      address3: clientAddress.address3 || '',
-    };
-  } else {
-    updatedFormData = {
-      company: '',
-      phone: '',
-      email: '',
-      gstin: '',
-      address1: '',
-      address2: '',
-      address3: '',
-    };
-  }
-  setFormData(updatedFormData);
-  CompanySelection(updatedFormData); // Send to parent
-};
+import { FetchData } from "@/Auth/FetchData";
+const Company = ({onCompanySelect})=>{
+  const { users, formData, handleCompanyChange } = FetchData(onCompanySelect, 'Profile', 'profile', 'profileAdd');
 
   return(
     <>
@@ -57,19 +12,18 @@ const handleCustomerChange = (event) => {
                   id="yourCompanyName"
                   label="Name"
                   value={formData.company}
-                  onChange={handleCustomerChange}
+                  onChange={handleCompanyChange}
                   name="company"
-                  list="receivedData"
+                  list="profileData"
                 />
-                <datalist id='receivedData'>
-                 {users.map(data=>(<option key={data.id} value={`${data.clientInfo.company} - ${data.clientInfo.gstin}`} />))}
+                <datalist id='profileData'>
+                 {users.map(data=>(<option key={data.id} value={`${data.profile.company} - ${data.profile.gstin}`} />))}
                 </datalist>
                 <FloatingLabelInput
                   id="yourCompanyPhone"
                   label="Phone"
-                  value={formData.phone}
-                  onChange={()=>{}}
-                  name="phone"
+                  value={formData.mobile}
+                  name="mobile"
                 />
               </div>
               <FloatingLabelInput

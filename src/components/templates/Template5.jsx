@@ -16,10 +16,11 @@ const Template5 = ({ data = {} }) => {
             </div>
             <div className="text-right">
               <h2 className="text-xl font-bold">
-                {yourCompany.name || "Company Name"}
+                {yourCompany.company}
               </h2>
-              <p>{yourCompany.address || "Company Address"}</p>
-              <p>{yourCompany.phone || "Company Phone"}</p>
+              <p>{yourCompany.gstin}</p>
+              <p>{yourCompany.address1}, {yourCompany.address2}</p>
+              <p>{yourCompany.address3}, {yourCompany.mobile}</p>
             </div>
           </div>
 

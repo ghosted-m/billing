@@ -1,4 +1,3 @@
-import React from 'react';
 import BaseTemplate from './BaseTemplate';
 import { formatCurrency } from '../../utils/formatCurrency';
 
@@ -12,13 +11,16 @@ const Template3 = ({ data }) => {
           <div>
             <div className="text-white inline-block">
               <h1 className="text-2xl font-bold" id="company-name">
-                {yourCompany?.name || "Your Company Name"}
+                {yourCompany?.company}
               </h1>
             </div>
             <p className="mt-2">
-              {yourCompany?.address || "Your Company Address"}
+              {yourCompany?.gstin},
             </p>
-            <p>{yourCompany?.phone || "Your Company Phone"}</p>
+            <p>
+              {yourCompany?.address1}, {yourCompany?.address2},
+            </p>
+            <p>{yourCompany.address3}, {yourCompany?.mobile }</p>
           </div>
           <div>
             <h2 className="text-xl font-semibold mb-2">BILLED TO</h2>

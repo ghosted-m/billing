@@ -33,7 +33,24 @@ const noteOptions = [
   "Thank you for choosing us today! We hope your shopping experience was pleasant and seamless. Your satisfaction matters to us, and we look forward to serving you again soon. Keep this receipt for any returns or exchanges.",
   "Your purchase supports our community! We believe in giving back and working towards a better future. Thank you for being a part of our journey. We appreciate your trust and hope to see you again soon.",
   "We value your feedback! Help us improve by sharing your thoughts on the text message survey link. Your opinions help us serve you better and improve your shopping experience. Thank you for shopping with us!",
-  
+  "Did you know you can save more with our loyalty program? Ask about it on your next visit and earn points on every purchase. It’s our way of saying thank you for being a loyal customer. See you next time!",
+  "Need assistance with your purchase? We’re here to help! Reach out to our customer support, or visit our website for more information. We’re committed to providing you with the best service possible.",
+  "Keep this receipt for returns or exchanges.",
+  "Every purchase makes a difference! We are dedicated to eco-friendly practices and sustainability. Thank you for supporting a greener planet with us. Together, we can build a better tomorrow.",
+  "Have a great day!",
+  "“Thank you for shopping with us today. Did you know you can return or exchange your items within 30 days with this receipt? We want to ensure that you’re happy with your purchase, so don’t hesitate to come back if you need assistance.",
+  "Eco-friendly business. This receipt is recyclable.",
+  "We hope you enjoyed your shopping experience! Remember, for every friend you refer, you can earn exclusive rewards. Visit www.example.com/refer for more details. We look forward to welcoming you back soon!",
+  "Thank you for choosing us! We appreciate your business and look forward to serving you again. Keep this receipt for any future inquiries or returns.",
+  "Your purchase supports local businesses and helps us continue our mission. Thank you for being a valued customer. We hope to see you again soon!",
+  "We hope you had a great shopping experience today. If you have any feedback, please share it with us on our website. We are always here to assist you.",
+  "Thank you for your visit! Remember, we offer exclusive discounts to returning customers. Check your email for special offers on your next purchase.",
+  "Your satisfaction is our top priority. If you need any help or have questions about your purchase, don’t hesitate to contact us. Have a great day!",
+  "We love our customers! Thank you for supporting our business. Follow us on social media for updates on promotions and new products. See you next time!",
+  "Every purchase counts! We are committed to making a positive impact, and your support helps us achieve our goals. Thank you for shopping with us today!",
+  "We hope you found everything you needed. If not, please let us know so we can improve your experience. Your feedback helps us serve you better. Thank you!",
+  "Thank you for visiting! Did you know you can save more with our rewards program? Ask about it during your next visit and start earning points today!",
+  "We appreciate your trust in us. If you ever need assistance with your order, please visit our website or call customer service. We’re here to help!",
 ];
 
 const Index = () => {
@@ -41,7 +58,11 @@ const Index = () => {
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
   const [billTo, setBillTo] = useState({});
   const [shipTo, setShipTo] = useState({ name: "", address1: "", address2:'',address3:'', phone: ""   });
-  const [invoice, setInvoice] = useState({date: "", paymentDate: "", number: generateRandomInvoiceNumber(),});
+  const [invoice, setInvoice] = useState({
+    date: "",
+    paymentDate: "",
+    number: "",
+  });
   const [yourCompany, setYourCompany] = useState({});
   const [items, setItems] = useState([]);
   const [taxPercentage, settaxPercentage] = useState(0);
@@ -55,7 +76,61 @@ const Index = () => {
     setNotes(noteOptions[randomIndex]);
   };
 
-//section for set data into localStorage...
+  // useEffect(() => {
+  //   // Load form data from localStorage on component mount
+  //   const savedFormData = localStorage.getItem("formData");
+  //   if (savedFormData) {
+  //     const parsedData = JSON.parse(savedFormData);
+  //     setBillTo(parsedData.billTo || { name: "", address: "", phone: "" });
+  //     setShipTo(parsedData.shipTo || { name: "", address: "", phone: "" });
+  //     setInvoice(
+  //       parsedData.invoice || { date: "", paymentDate: "", number: "" }
+  //     );
+  //     setYourCompany(
+  //       parsedData.yourCompany || { name: "", address: "", phone: "" }
+  //     );
+  //     setItems(parsedData.items || []);
+  //     settaxPercentage(parsedData.taxPercentage || 0);
+  //     setNotes(parsedData.notes || "");
+  //     setSelectedCurrency(parsedData.selectedCurrency || "INR"); // Load selectedCurrency from localStorage
+  //   } else {
+  //     // If no saved data, set invoice number
+  //     setInvoice((prev) => ({
+  //       ...prev,
+  //       number: generateRandomInvoiceNumber(),
+  //     }));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   // Save form data to localStorage whenever it changes
+  //   const formData = {
+  //     billTo,
+  //     shipTo,
+  //     invoice,
+  //     yourCompany,
+  //     items,
+  //     taxPercentage,
+  //     taxAmount,
+  //     subTotal,
+  //     grandTotal,
+  //     notes,
+  //     selectedCurrency, // Add selectedCurrency to localStorage
+  //   };
+  //   localStorage.setItem("formData", JSON.stringify(formData));
+  // }, [
+  //   billTo,
+  //   shipTo,
+  //   invoice,
+  //   yourCompany,
+  //   items,
+  //   taxPercentage,
+  //   notes,
+  //   taxAmount,
+  //   subTotal,
+  //   grandTotal,
+  //   selectedCurrency, // Add selectedCurrency to localStorage dependency array
+  // ]);
 
   const handleInputChange = (setter) => (e) => {
     const { name, value } = e.target;
@@ -136,6 +211,57 @@ const Index = () => {
     });
   };
 
+  const fillDummyData = () => {
+    setBillTo({
+      name: "John Doe",
+      address: "123 Main St, Anytown, USA",
+      phone: "(555) 123-4567",
+    });
+    setShipTo({
+      name: "Jane Smith",
+      address: "456 Elm St, Othertown, USA",
+      phone: "(555) 987-6543",
+    });
+    setInvoice({
+      date: new Date().toISOString().split("T")[0],
+      paymentDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0],
+      number: generateRandomInvoiceNumber(),
+    });
+    setYourCompany({
+      name: "Your Company",
+      address: "789 Oak St, Businessville, USA",
+      phone: "(555) 555-5555",
+    });
+    setItems([
+      {
+        name: "Product A",
+        description: "High-quality item",
+        quantity: 2,
+        amount: 50,
+        total: 100,
+      },
+      {
+        name: "Service B",
+        description: "Professional service",
+        quantity: 1,
+        amount: 200,
+        total: 200,
+      },
+      {
+        name: "Product C",
+        description: "Another great product",
+        quantity: 3,
+        amount: 30,
+        total: 90,
+      },
+    ]);
+    settaxPercentage(10);
+    calculateSubTotal();
+    setNotes("Thank you for your business!");
+  };
+
   const clearForm = () => {
     setBillTo({ name: "", phone: "", address1: "", address2:'', address3:'', gstin:'', });
     setShipTo({ name: "", phone:'', address1: "", address2:'', address3:'', });
@@ -176,7 +302,6 @@ const Index = () => {
   console.log(fullFormData); 
 };
 
-
   return (
     <div className="container mx-auto px-4 py-8 relative">
       <h1 className="text-3xl font-bold mb-8 text-center">Bill Generator</h1>
@@ -189,7 +314,7 @@ const Index = () => {
           <FiTrash2 size={24} />
         </button>
         <button
-          onClick={()=>{}}
+          onClick={fillDummyData}
           className="bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600"
           aria-label="Fill with Dummy Data"
         >
@@ -220,7 +345,7 @@ const Index = () => {
       </button>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <form onSubmit={handleSubmit}>
             <BillToSection
               billTo={billTo}
               onFormDataChange={setBillTo}
@@ -264,8 +389,7 @@ const Index = () => {
               </div>
             </div>
 
-            <Company 
-            CompanySelection={setYourCompany} />
+            <Company CompanySelection={setYourCompany} />
             
             <ItemDetails
               items={items}
@@ -324,7 +448,7 @@ const Index = () => {
             </div>
 
             {/* Clear Form button removed */}
-            <input type='reset' value='Reset' className='px-4 py-2'/>
+            <input type='reset' value='Reset' />
             <input type='submit' value='Submit' />
           </form>
         </div>

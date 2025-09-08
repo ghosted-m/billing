@@ -31,7 +31,7 @@ const Template7 = ({ data }) => {
           </div>
           <div className="text-right">
             <h2 className="text-2xl font-bold">
-              {yourCompany.name || "Your Company Name"}
+              {yourCompany.company }
             </h2>
           </div>
         </div>
@@ -39,9 +39,10 @@ const Template7 = ({ data }) => {
         <div className="grid grid-cols-2 gap-8 mb-8 bg-gray-100 p-4">
           <div>
             <h3 className="text-lg font-semibold mb-2">Billed by</h3>
-            <p>{yourCompany.name || "Your Company Name"}</p>
-            <p>{yourCompany.address || "Your Company Address"}</p>
-            <p>{yourCompany.phone || "Your Company Phone"}</p>
+            <p>{yourCompany.company }</p>
+            <p>{yourCompany.gstin }</p>
+            <p>{yourCompany.address1}, {yourCompany.address2}</p>
+            <p>{yourCompany.address3}, {yourCompany.mobile }</p>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Billed to</h3>

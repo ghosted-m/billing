@@ -1,54 +1,12 @@
 import FloatingLabelInput from './FloatingLabelInput';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { getUserData } from '../Auth/Database';
-import { useState, useEffect } from 'react';
+import { FetchData } from "@/Auth/FetchData";
 
-const BillToSection = ({selectedCurrency, setSelectedCurrency, onFormDataChange }) => {
+const BillToSection = ({selectedCurrency, setSelectedCurrency, onCompanySelect }) => {
   
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const data = await getUserData();
-      setUsers(data);
-      console.log(data);
-    };
-    fetchUsers();
-  }, []);
+    const { users, formData, handleCompanyChange } = FetchData(onCompanySelect, 'users', 'clientInfo', 'clientAddress');
   
-const [formData, setFormData] = useState({});
-const handleCustomerChange = (event) => {
-  const selectedName = event.target.value;
-  const customer = users.find(
-    (c) => `${c.clientInfo.company} - ${c.clientInfo.gstin}` === selectedName
-  );
-
-  let updatedFormData;
-  if (customer) {
-    const { clientInfo, clientAddress } = customer;
-    updatedFormData = {
-      company: clientInfo.company || '',
-      phone: clientInfo.mobile || '',
-      email: clientInfo.email || '',
-      gstin: clientInfo.gstin || '',
-      address1: clientAddress.address1 || '',
-      address2: clientAddress.address2 || '',
-      address3: clientAddress.address3 || '',
-    };
-  } else {
-    updatedFormData = {
-      company: '',
-      phone: '',
-      email: '',
-      gstin: '',
-      address1: '',
-      address2: '',
-      address3: '',
-    };
-  }
-  setFormData(updatedFormData);
-  onFormDataChange(updatedFormData); // Send to parent
-};
 
   return (
     <div className="mb-6">
@@ -76,7 +34,7 @@ const handleCustomerChange = (event) => {
           id="billToName"
           label="Name"
           value={formData.company}
-          onChange={handleCustomerChange}
+          onChange={handleCompanyChange}
           name="company"
           list='receivedData'
         />
@@ -87,16 +45,14 @@ const handleCustomerChange = (event) => {
         <FloatingLabelInput
           id="billToPhone"
           label="Phone"
-          value={formData.phone}
-          name="phone"
-          onChange={() => {}}
+          value={formData.mobile}
+          name="mobile"
         />
         <FloatingLabelInput
           id="billToGSTIN"
           label="GSTIN"
           value={formData.gstin}
           name="gstin"
-          onChange={() => {}}
         />
       </div>
       <FloatingLabelInput
@@ -105,7 +61,6 @@ const handleCustomerChange = (event) => {
         value={formData.address1}
         name="address1"
         className="mt-4"
-        onChange={() => {}}
       />
       <FloatingLabelInput
         id="billToAddress"
@@ -113,7 +68,6 @@ const handleCustomerChange = (event) => {
         value={formData.address2}
         name="address2"
         className="mt-4"
-        onChange={() => {}}
       />
       <FloatingLabelInput
         id="billToAddress"
@@ -121,7 +75,6 @@ const handleCustomerChange = (event) => {
         value={formData.address3}
         name="address3"
         className="mt-4"
-        onChange={() => {}}
       />
     </div>
   );

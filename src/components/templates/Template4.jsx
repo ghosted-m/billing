@@ -31,10 +31,10 @@ const Template4 = ({ data }) => {
           </div>
           <div className="text-right">
             <h2 className="text-2xl font-bold">
-              {yourCompany.name || "Company Name"}
+              {yourCompany.company}
             </h2>
-            <p>{yourCompany.address || "Company Address"}</p>
-            <p>{yourCompany.phone || "Company Phone"}</p>
+            <p>{yourCompany.address1 }, {yourCompany.address2}</p>
+            <p>{yourCompany.address3}, {yourCompany.mobile }</p>
           </div>
         </div>
 
@@ -44,10 +44,11 @@ const Template4 = ({ data }) => {
               Billed by
             </h3>
             <p>
-              <strong>{yourCompany.name || "Company Name"}</strong>
+              <strong>{yourCompany.company}</strong>
             </p>
-            <p>{yourCompany.address || "Company Address"}</p>
-            <p>{yourCompany.phone || "Company Phone"}</p>
+            <p>{yourCompany.gstin}</p>
+            <p>{yourCompany.address1}, {yourCompany.address2}</p>
+            <p>{yourCompany.address3}, {yourCompany.mobile}</p>
           </div>
           <div className="bg-gray-100 p-4 rounded">
             <h3 className="text-lg font-semibold text-purple-600 mb-2">

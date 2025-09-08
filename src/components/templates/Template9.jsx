@@ -1,4 +1,3 @@
-import React from 'react';
 import { format } from 'date-fns';
 import BaseTemplate from './BaseTemplate';
 import { formatCurrency } from '../../utils/formatCurrency';
@@ -13,10 +12,9 @@ const Template9 = ({ data }) => {
           <div>
             <h1 className="text-3xl font-bold text-orange-600 mb-2">Invoice</h1>
             <h2 className="text-xl font-bold">
-              {yourCompany.name || "Your Company Name"}
+              {yourCompany.company}
             </h2>
-            <p>{yourCompany.address || "Company Address"}</p>
-            <p>{yourCompany.phone || "Company Phone"}</p>
+            <p>{yourCompany.mobile}</p>
           </div>
           <div className="text-right">
             <p>
@@ -43,8 +41,10 @@ const Template9 = ({ data }) => {
             <h3 className="text-lg font-semibold text-orange-600 mb-2">
               Billed by
             </h3>
-            <p>{yourCompany.name || "Your Company Name"}</p>
-            <p>{yourCompany.address || "Your Company Address"}</p>
+            <p>{yourCompany.company}</p>
+            <p>{yourCompany.gstin}</p>
+            <p>{yourCompany.address1}, {yourCompany.address2}</p>
+            <p>{yourCompany.address3}, {yourCompany.mobile}</p>
           </div>
           <div className="bg-orange-50 p-4 rounded">
             <h3 className="text-lg font-semibold text-orange-600 mb-2">
