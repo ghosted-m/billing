@@ -1,12 +1,9 @@
 import FloatingLabelInput from './FloatingLabelInput';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { FetchData } from "@/Auth/FetchData";
 
-const BillToSection = ({selectedCurrency, setSelectedCurrency, onCompanySelect }) => {
-  
-    const { users, formData, handleCompanyChange } = FetchData(onCompanySelect, 'users', 'clientInfo', 'clientAddress');
-  
+const BillToSection = ({selectedCurrency, setSelectedCurrency, customerCollectionData, customerFormData, onChange }) => {
+
 
   return (
     <div className="mb-6">
@@ -33,51 +30,50 @@ const BillToSection = ({selectedCurrency, setSelectedCurrency, onCompanySelect }
         <FloatingLabelInput
           id="billToName"
           label="Name"
-          value={formData.company}
-          onChange={handleCompanyChange}
+          value={customerFormData.company}
+          onChange={onChange}
           name="company"
           list='receivedData'
         />
         <datalist id='receivedData'>
-          {users.map(data=>(<option key={data.id} value={`${data.clientInfo.company} - ${data.clientInfo.gstin}`} />))}
+          {customerCollectionData.map(data=>(<option key={data.id} value={`${data.clientInfo.company} - ${data.clientInfo.gstin}`} />))}
         </datalist>
         </div>
         <FloatingLabelInput
           id="billToPhone"
           label="Phone"
-          value={formData.mobile}
+          value={customerFormData.mobile}
           name="mobile"
         />
         <FloatingLabelInput
           id="billToGSTIN"
           label="GSTIN"
-          value={formData.gstin}
+          value={customerFormData.gstin}
           name="gstin"
         />
       </div>
       <FloatingLabelInput
         id="billToAddress"
         label="Address"
-        value={formData.address1}
+        value={customerFormData.address1}
         name="address1"
         className="mt-4"
       />
       <FloatingLabelInput
         id="billToAddress"
         label="Address-2"
-        value={formData.address2}
+        value={customerFormData.address2}
         name="address2"
         className="mt-4"
       />
       <FloatingLabelInput
         id="billToAddress"
         label="Address-3"
-        value={formData.address3}
+        value={customerFormData.address3}
         name="address3"
         className="mt-4"
       />
     </div>
   );
 };
-
 export default BillToSection;

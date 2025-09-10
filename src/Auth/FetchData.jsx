@@ -11,21 +11,21 @@ const emptyForm = {
   address3: '',
 };
 
-export const FetchData = (onCompanySelect, collectionName, key1='', key2='') => {
-  const [users, setUsers] = useState([]);
+export const FetchData = (collectionName, key1='', key2='', prefix='') => {
+  const [collectionData, setCollectionData] = useState([]);
   const [formData, setFormData] = useState(emptyForm);
 
   useEffect(() => {
     const fetchUsers = async () => {
       const data = await getUserData(collectionName);
-      setUsers(data);
+      setCollectionData(data);
     };
     fetchUsers();
   }, []);
 
   const handleCompanyChange = (event) => {
     const selectedName = event.target.value;
-    const customer = users.find(
+    const customer = collectionData.find(
       (c) => `${c[key1]?.company} - ${c[key1]?.gstin}` === selectedName
     );
 
@@ -39,17 +39,12 @@ export const FetchData = (onCompanySelect, collectionName, key1='', key2='') => 
         ...add,
       };
     }
-
     setFormData(updatedFormData);
-
-    ()=>{
-    onCompanySelect(updatedFormData);
-    }
   };
 
   return {
-    users,
-    formData,
-    handleCompanyChange,
+    [`${prefix}CollectionData`]:collectionData,
+    [`${prefix}FormData`]:formData,
+    [`${prefix}HandleCompanyChange`]:handleCompanyChange,
   };
 };
