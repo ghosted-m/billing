@@ -8,54 +8,112 @@ import { formatCurrency } from '../utils/formatCurrency';
 import { templates } from "../utils/templateRegistry";
 import { FiEdit, FiFileText, FiTrash2 } from "react-icons/fi";
 import { RefreshCw } from "lucide-react";
-import { set, sub } from "date-fns";
 import Company from '../components/Company';
-
+import { FetchData } from "@/Auth/FetchData";
 const generateRandomInvoiceNumber = () => {
   const length = Math.floor(Math.random() * 6) + 3;
   const alphabetCount = Math.min(Math.floor(Math.random() * 4), length);
   let result = "";
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
-
   for (let i = 0; i < alphabetCount; i++) {
     result += alphabet[Math.floor(Math.random() * alphabet.length)];
   }
-
   for (let i = alphabetCount; i < length; i++) {
     result += numbers[Math.floor(Math.random() * numbers.length)];
   }
-
   return result;
 };
-
 const noteOptions = [
   "Thank you for choosing us today! We hope your shopping experience was pleasant and seamless. Your satisfaction matters to us, and we look forward to serving you again soon. Keep this receipt for any returns or exchanges.",
   "Your purchase supports our community! We believe in giving back and working towards a better future. Thank you for being a part of our journey. We appreciate your trust and hope to see you again soon.",
   "We value your feedback! Help us improve by sharing your thoughts on the text message survey link. Your opinions help us serve you better and improve your shopping experience. Thank you for shopping with us!",
-  
 ];
-
 const Index = () => {
   const navigate = useNavigate();
+  const { firmCollectionData, firmFormData, firmHandleCompanyChange } = FetchData( 'Profile', 'profile', 'profileAdd','firm');
+  const { customerCollectionData, customerFormData, customerHandleCompanyChange } = FetchData( 'users', 'clientInfo', 'clientAddress','customer');
+
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
-  const [billTo, setBillTo] = useState({});
+  const [billTo, setBillTo] = useState({customerFormData});
   const [shipTo, setShipTo] = useState({ name: "", address1: "", address2:'',address3:'', phone: ""   });
   const [invoice, setInvoice] = useState({date: "", paymentDate: "", number: generateRandomInvoiceNumber(),});
-  const [yourCompany, setYourCompany] = useState({});
+  const [yourCompany, setYourCompany] = useState({firmFormData});
   const [items, setItems] = useState([]);
   const [taxPercentage, settaxPercentage] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
   const [notes, setNotes] = useState("");
-
   const refreshNotes = () => {
     const randomIndex = Math.floor(Math.random() * noteOptions.length);
     setNotes(noteOptions[randomIndex]);
   };
 
+  
+useEffect(()=>{
+setBillTo(customerFormData);
+setYourCompany(firmFormData);
+
+},[customerFormData, firmFormData])
+
 //section for set data into localStorage...
+
+  useEffect(() => {
+    // Load form data from localStorage on component mount
+    const savedFormData = localStorage.getItem("formData");
+    if (savedFormData) {
+      const parsedData = JSON.parse(savedFormData);
+      setBillTo(parsedData.billTo || { company:'', mobile:'', gstin:'', address1:'', address2:'', address3:'', });
+      setShipTo(parsedData.shipTo || { company:'', mobile:'', address1:'', address2:'', address3:'', });
+      setInvoice(
+        parsedData.invoice || { date: "", paymentDate: "", number: "" }
+      );
+      setYourCompany(
+        parsedData.yourCompany || { company:'', mobile:'', gstin:'', address1:'', address2:'', address3:'', }
+      );
+      setItems(parsedData.items || []);
+      settaxPercentage(parsedData.taxPercentage || 0);
+      setNotes(parsedData.notes || "");
+      setSelectedCurrency(parsedData.selectedCurrency || "INR"); // Load selectedCurrency from localStorage
+    } else {
+      // If no saved data, set invoice number
+      setInvoice((prev) => ({
+        ...prev,
+        number: generateRandomInvoiceNumber(),
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save form data to localStorage whenever it changes
+    const formData = {
+      billTo,
+      shipTo,
+      invoice,
+      yourCompany,
+      items,
+      taxPercentage,
+      taxAmount,
+      subTotal,
+      grandTotal,
+      notes,
+      selectedCurrency, // Add selectedCurrency to localStorage
+    };
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [
+    billTo,
+    shipTo,
+    invoice,
+    yourCompany,
+    items,
+    taxPercentage,
+    notes,
+    taxAmount,
+    subTotal,
+    grandTotal,
+    selectedCurrency, // Add selectedCurrency to localStorage dependency array
+  ]);
 
   const handleInputChange = (setter) => (e) => {
     const { name, value } = e.target;
@@ -221,11 +279,15 @@ const Index = () => {
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
           <form onSubmit={handleSubmit} autoComplete='off'>
+
             <BillToSection
               billTo={billTo}
-              onFormDataChange={setBillTo}
               selectedCurrency={selectedCurrency}
               setSelectedCurrency={setSelectedCurrency}
+              customerCollectionData={customerCollectionData}
+              customerFormData={customerFormData}
+              onChange={customerHandleCompanyChange}
+
             />
             <ShipToSection
               shipTo={shipTo}
@@ -265,7 +327,10 @@ const Index = () => {
             </div>
 
             <Company 
-            CompanySelection={setYourCompany} />
+            firmCollectionData={firmCollectionData}
+            firmFormData={firmFormData}
+            onChange={firmHandleCompanyChange}
+            />
             
             <ItemDetails
               items={items}

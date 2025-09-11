@@ -1,8 +1,5 @@
 import FloatingLabelInput from "./FloatingLabelInput";
-import { FetchData } from "@/Auth/FetchData";
-const Company = ({onCompanySelect})=>{
-  const { users, formData, handleCompanyChange } = FetchData(onCompanySelect, 'Profile', 'profile', 'profileAdd');
-
+const Company = ({firmCollectionData, firmFormData, onChange})=>{
   return(
     <>
     <div className="mb-6">
@@ -11,46 +8,46 @@ const Company = ({onCompanySelect})=>{
                 <FloatingLabelInput
                   id="yourCompanyName"
                   label="Name"
-                  value={formData.company}
-                  onChange={handleCompanyChange}
+                  value={firmFormData.company}
+                  onChange={onChange}
                   name="company"
                   list="profileData"
                 />
                 <datalist id='profileData'>
-                 {users.map(data=>(<option key={data.id} value={`${data.profile.company} - ${data.profile.gstin}`} />))}
+                 {firmCollectionData.map(data=>(<option key={data.id} value={`${data.profile.company} - ${data.profile.gstin}`} />))}
                 </datalist>
                 <FloatingLabelInput
                   id="yourCompanyPhone"
                   label="Phone"
-                  value={formData.mobile}
+                  value={firmFormData.mobile}
                   name="mobile"
                 />
               </div>
               <FloatingLabelInput
                 id="yourCompanyGSTIN"
                 label="GSTIN"
-                value={formData.gstin}
+                value={firmFormData.gstin}
                 name="gstin"
                 className="mt-4"
               />
               <FloatingLabelInput
                 id="yourCompanyAddress1"
                 label="Address"
-                value={formData.address1}
+                value={firmFormData.address1}
                 name="address1"
                 className="mt-4"
               />
               <FloatingLabelInput
                 id="yourCompanyAddress2"
                 label="Address"
-                value={formData.address2}
+                value={firmFormData.address2}
                 name="address2"
                 className="mt-4"
               />
               <FloatingLabelInput
                 id="yourCompanyAddress3"
                 label="Address"
-                value={formData.address3}
+                value={firmFormData.address3}
                 name="address3"
                 className="mt-4"
               />

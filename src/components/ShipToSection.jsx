@@ -15,10 +15,18 @@ const ShipToSection = ({ shipTo, handleInputChange, billTo }) => {
     setCopyBillToShip(e.target.checked);
     if (e.target.checked) {
       handleInputChange({ target: { name: 'name', value: billTo.company } });
-      handleInputChange({ target: { name: 'phone', value: billTo.phone } });
+      handleInputChange({ target: { name: 'mobile', value: billTo.mobile } });
       handleInputChange({ target: { name: 'address1', value: billTo.address1 } });
       handleInputChange({ target: { name: 'address2', value: billTo.address2 } });
       handleInputChange({ target: { name: 'address3', value: billTo.address3 } });
+    }
+    else{
+      
+      handleInputChange({ target: { name: 'name', value: '' } });
+      handleInputChange({ target: { name: 'mobile', value: '' } });
+      handleInputChange({ target: { name: 'address1', value: '' } });
+      handleInputChange({ target: { name: 'address2', value: '' } });
+      handleInputChange({ target: { name: 'address3', value: '' } });
     }
   };
 
@@ -55,9 +63,9 @@ const ShipToSection = ({ shipTo, handleInputChange, billTo }) => {
             <FloatingLabelInput
               id="shipToPhone"
               label="Phone"
-              value={shipTo.phone}
+              value={shipTo.mobile}
               onChange={handleInputChange}
-              name="phone"
+              name="mobile"
             />
           </div>
           <FloatingLabelInput
