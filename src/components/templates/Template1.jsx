@@ -15,9 +15,9 @@ const Template1 = ({ data }) => {
 
         <div className="flex justify-between mb-12">
           <div>
-            <h1 className="text-2xl font-bold">{yourCompany.name}</h1>
-            <p>{yourCompany.address}</p>
-            <p>{yourCompany.phone}</p>
+            <h1 className="text-2xl font-bold">{yourCompany.company}</h1>
+            <p> {yourCompany.gstin}</p>
+            <p>{yourCompany.address1}, {yourCompany.mobile}</p>
           </div>
           <div>
             <p>Invoice Number: {invoice.number}</p>
@@ -37,8 +37,8 @@ const Template1 = ({ data }) => {
           <div>
             <h3 className="font-semibold">Ship To:</h3>
             <p>{shipTo.name}</p>
-            <p>{shipTo.address}</p>
-            <p>{shipTo.phone}</p>
+            <p>{shipTo.address1}, {yourCompany.address2} </p>
+            <p>{yourCompany.address3}, {shipTo.mobile}</p>
           </div>
         </div>
 

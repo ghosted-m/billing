@@ -10,7 +10,6 @@ import { FiEdit, FiFileText, FiTrash2 } from "react-icons/fi";
 import { RefreshCw } from "lucide-react";
 import Company from '../components/Company';
 import { FetchData } from "@/Auth/FetchData";
-
 const generateRandomInvoiceNumber = () => {
   const length = Math.floor(Math.random() * 6) + 3;
   const alphabetCount = Math.min(Math.floor(Math.random() * 4), length);
@@ -34,11 +33,12 @@ const Index = () => {
   const navigate = useNavigate();
   const { firmCollectionData, firmFormData, firmHandleCompanyChange } = FetchData( 'Profile', 'profile', 'profileAdd','firm');
   const { customerCollectionData, customerFormData, customerHandleCompanyChange } = FetchData( 'users', 'clientInfo', 'clientAddress','customer');
+
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
-  const [billTo, setBillTo] = useState({});
+  const [billTo, setBillTo] = useState({customerFormData});
   const [shipTo, setShipTo] = useState({ name: "", address1: "", address2:'',address3:'', phone: ""   });
   const [invoice, setInvoice] = useState({date: "", paymentDate: "", number: generateRandomInvoiceNumber(),});
-  const [yourCompany, setYourCompany] = useState({});
+  const [yourCompany, setYourCompany] = useState({firmFormData});
   const [items, setItems] = useState([]);
   const [taxPercentage, settaxPercentage] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
@@ -50,6 +50,13 @@ const Index = () => {
     setNotes(noteOptions[randomIndex]);
   };
 
+  
+useEffect(()=>{
+setBillTo(customerFormData);
+setYourCompany(firmFormData);
+
+},[customerFormData, firmFormData])
+
 //section for set data into localStorage...
 
   useEffect(() => {
@@ -57,13 +64,13 @@ const Index = () => {
     const savedFormData = localStorage.getItem("formData");
     if (savedFormData) {
       const parsedData = JSON.parse(savedFormData);
-      setBillTo(parsedData.billTo || { name: "", address: "", phone: "" });
-      setShipTo(parsedData.shipTo || { name: "", address: "", phone: "" });
+      setBillTo(parsedData.billTo || { company:'', mobile:'', gstin:'', address1:'', address2:'', address3:'', });
+      setShipTo(parsedData.shipTo || { company:'', mobile:'', address1:'', address2:'', address3:'', });
       setInvoice(
         parsedData.invoice || { date: "", paymentDate: "", number: "" }
       );
       setYourCompany(
-        parsedData.yourCompany || { name: "", address: "", phone: "" }
+        parsedData.yourCompany || { company:'', mobile:'', gstin:'', address1:'', address2:'', address3:'', }
       );
       setItems(parsedData.items || []);
       settaxPercentage(parsedData.taxPercentage || 0);
@@ -272,7 +279,9 @@ const Index = () => {
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
           <form onSubmit={handleSubmit} autoComplete='off'>
+
             <BillToSection
+              billTo={billTo}
               selectedCurrency={selectedCurrency}
               setSelectedCurrency={setSelectedCurrency}
               customerCollectionData={customerCollectionData}
