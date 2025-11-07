@@ -65,8 +65,8 @@ document.addEventListener('alpine:init', () => {
     clearData() {
       if (confirm('Are you sure you want to clear all data?')) {
         localStorage.removeItem('billData');
-        this.billTo = { name: '', address: '', phone: '' };
-        this.shipTo = { name: '', address: '', phone: '' };
+        this.billTo = { company:'', mobile:'', gstin:'', address1:'', address2:'', address3:'', };
+        this.shipTo = { company:'', mobile:'', address1:'', address2:'', address3:'', };
         this.invoice = { date: '', paymentDate: '' };
         this.from = { name: '', address: '', phone: '' };
         this.items = [{ sno: 1, name: '', description: '', quantity: 0, amount: 0, total: 0 }];
