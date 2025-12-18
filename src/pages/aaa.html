@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-page A4 Document</title>
+    <style>
+        /* A4 page size */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        /* Body styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        /* Page Container */
+        .page {
+            width: 21cm;
+            height: 29.7cm;
+            padding: 2cm;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header and Footer styling */
+        .header, .footer {
+            position: absolute;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .header {
+            top: 0;
+        }
+
+        .footer {
+            bottom: 0;
+        }
+
+        /* Main content area */
+        .content {
+            padding-top: 50px;  /* Space for header */
+            padding-bottom: 50px; /* Space for footer */
+            overflow: hidden;
+            page-break-before: always;
+        }
+
+        /* Page break for new page when content overflows */
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container for multiple pages -->
+    <div class="page">
+        <!-- Header -->
+        <div class="header">
+            <h1>Document Header</h1>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <p>This is some sample content. Repeat or add more text to overflow and generate more pages...</p>
+
+            <!-- Simulating a page break -->
+            <div class="page-break"></div>
+
+            <p>This is page 2. More content can go here.</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Document Footer</p>
+        </div>
+    </div>
+
+</body>
+</html>

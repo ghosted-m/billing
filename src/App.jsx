@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Profile from "./Auth/AddProfile";
 import Company from "./components/Company";
 import BillToSection from "./components/BillToSection";
+import { Abctest } from "./Auth/abc";
+import Test from './pages/Test'
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const App = () => (
           <Route path="/company" element={<Profile />} />
           <Route path="/add" element={<BillToSection />} />
           <Route path="/bb" element={<Company />} />
+          <Route path="/abc" element={<Abctest />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

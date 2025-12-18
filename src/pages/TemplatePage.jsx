@@ -87,7 +87,7 @@ const TemplatePage = () => {
         </div>
       </div>
 
-      <div className="w-[210mm] h-[297mm] mx-auto border shadow-lg">
+      <div className="w-[210mm] min-h-[297mm] mx-auto border shadow-lg">
         <InvoiceTemplate data={formData} templateNumber={currentTemplate} />
       </div>
     </div>

@@ -1,10 +1,11 @@
 import { format } from 'date-fns';
 import BaseTemplate from './BaseTemplate';
 import { formatCurrency } from '../../utils/formatCurrency';
+import {QRCodeSVG} from 'qrcode.react';
+import Bank from '@/components/Bank';
 
 const Template9 = ({ data }) => {
   const { billTo = {}, shipTo = {}, invoice = {}, yourCompany = {}, items = [], taxPercentage = 0, taxAmount = 0, subTotal = 0, grandTotal = 0, notes = '', selectedCurrency } = data || {};
-
   return (
     <BaseTemplate data={data}>
       <div className="bg-white p-8 max-w-4xl mx-auto">
@@ -93,8 +94,10 @@ const Template9 = ({ data }) => {
           <h3 className='text-2xl text-orange-600'>
             Bank & Payments
           </h3>
+         <Bank value={`upi://pay?pa=7979852849@pthdfc&pn=AmrendraKumar&am=${grandTotal}&tn=RefrensINV ${invoice}`}/>
           </div>
-          <div className="w-1/2 bg-orange-50 p-3 rounded-lg">
+          
+          <div className="w-1/2 bg-orange-50 p-3 h-[130px] rounded-lg">
             <div className="flex justify-between mb-2">
               <span>Sub Total:</span>
               <span>{formatCurrency(subTotal, selectedCurrency)}</span>
