@@ -2,6 +2,7 @@ import FloatingLabelInput from './FloatingLabelInput';
 import { Trash2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { getCurrencySymbol } from '../utils/formatCurrency.js';
+import { products } from '@/components/praduct';
 
 const ItemDetails = ({ items, handleItemChange, addItem, removeItem, currencyCode: propCurrencyCode }) => {
   let currencyCode = propCurrencyCode;
@@ -17,12 +18,33 @@ const ItemDetails = ({ items, handleItemChange, addItem, removeItem, currencyCod
       {items.map((item, index) => (
         <div key={index} className="mb-4 relative">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-2">
-            <FloatingLabelInput
-              id={`itemName${index}`}
-              label="Name"
-              value={item.name}
-              onChange={(e) => handleItemChange(index, 'name', e.target.value)}
-            />
+            <div>
+              <FloatingLabelInput
+                id={`itemName${index}`}
+                label="Name"
+                value={item.name}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  handleItemChange(index, 'name', val);
+                  const prod = products.find(p => p.name === val);
+                  if (prod) {
+                    // set amount and hsn when a product is selected
+                    handleItemChange(index, 'amount', prod.value || 0);
+                    handleItemChange(index, 'hsn', prod.code || '');
+                    // default quantity to 1 if not set
+                    if (!item.quantity || item.quantity === 0) {
+                      handleItemChange(index, 'quantity', 1);
+                    }
+                  }
+                }}
+                list={`products-${index}`}
+              />
+              <datalist id={`products-${index}`}>
+                {products.map(p => (
+                  <option key={p.id} value={p.name} />
+                ))}
+              </datalist>
+            </div>
             <FloatingLabelInput
               id={`itemQuantity${index}`}
               label="Quantity"
