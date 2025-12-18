@@ -1,29 +1,4 @@
-type Product = {
-  product: string;
-  price: string;
-  unit: string;
-  hsn: string;
-  gst: string;
-  desc: string;
-};
-
-type Address = {
-  address1: string;
-  address2: string;
-  address3: string;
-};
-
-type Customer = {
-  id: string;
-  name: string;
-  phone: string;
-  email: string;
-  gstin: string;
-  billingAddress: Address;
-  shippingAddress: Address;
-};
-
-const products: Product[] = [
+const products = [
   {
     product: 'item 1',
     price: '10.00',
@@ -50,7 +25,7 @@ const products: Product[] = [
   },
 ];
 
-const customers: Customer[] = [
+const customers = [
   {
     id: '1',
     name: 'Amrendra kumar',

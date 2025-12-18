@@ -88,7 +88,12 @@ const Template9 = ({ data }) => {
             </table>
           </div>
         </div>
-        <div className="flex justify-end mb-8">
+        <div className="flex justify-between mb-8">
+          <div className='w-1/2'>
+          <h3 className='text-2xl text-orange-600'>
+            Bank & Payments
+          </h3>
+          </div>
           <div className="w-1/2 bg-orange-50 p-3 rounded-lg">
             <div className="flex justify-between mb-2">
               <span>Sub Total:</span>
